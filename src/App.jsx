@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ChessBoard from "./components/Chessboard";
+import ChessBoard from "./components/ChessBoard";
 import { generateSolutions } from "./utils/solutions";
 
 const App = () => {
