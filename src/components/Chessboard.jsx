@@ -7,10 +7,15 @@ const ChessBoard = ({ queens, setQueens, selectedQueen, lightColor, darkColor, i
   // Handle square click to place/remove a queen
   const handleSquareClick = (row, col) => {
     const pos = `${row}-${col}`;
-    setQueens((prev) =>
-      prev.includes(pos) ? prev.filter((q) => q !== pos) : [...prev, pos]
-    );
+    setQueens((prev) => {
+      if (prev.includes(pos)) {
+        return prev.filter((q) => q !== pos); // Remove queen
+      } else {
+        return [...prev, pos]; // Add queen
+      }
+    });
   };
+  
 
   // Calculate invalid positions
   const calculateInvalidPositions = () => {
@@ -59,8 +64,8 @@ const ChessBoard = ({ queens, setQueens, selectedQueen, lightColor, darkColor, i
               ? darkColor // Custom dark color
               : lightColor, // Custom light color
           }}
-          onClick={() => !isInvalid && handleSquareClick(i, j)}
-        >
+          onClick={() => (isQueen ? handleSquareClick(i, j) : !isInvalid && handleSquareClick(i, j))}
+          >
           {isQueen && <img src={`/${selectedQueen}`} alt="Queen" className="w-12 h-12" />}
         </div>
       );
